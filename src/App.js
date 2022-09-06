@@ -18,14 +18,14 @@ export default function App() {
   };
   return (
     <Container maxWidth="lg">
-      {/* <AccountMenu onClick={handleOnClick} />
-      {openForm && <BasicForm />}
+      <AccountMenu onClick={handleOnClick} />
       <Box sx={{ my: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           React Skills test
         </Typography>
-  </Box>*/}
-  <BasicForm/>
+      </Box>
+      {openForm && <BasicForm />}
+
     </Container>
   );
 }

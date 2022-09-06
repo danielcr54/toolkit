@@ -10,10 +10,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import delete1 from "./delete1.png";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo } from "./actions/index";
 
 const validationSchema = yup.object({
-  firstName: yup.string("Enter your firstName").required("Email is firstName"),
-  lastName: yup.string("Enter your lastName").required("Email is lastName"),
+  firstname: yup.string("Enter your firstname").required("Email is firstname"),
+  lastname: yup.string("Enter your lastname").required("Email is lastname"),
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
@@ -22,6 +24,11 @@ const validationSchema = yup.object({
 
 const BasicForm = () => {
   const [initial, setInitial] = React.useState([]);
+
+  const myState = useSelector((state) => state.todoReducers);
+  console.log("mystate", myState);
+  console.log("initialinitial", initial);
+  const dispatch = useDispatch();
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("key"));
     data != null ? setInitial(data) : setInitial([]);
@@ -29,15 +36,15 @@ const BasicForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
       email: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
       resetForm({
-        firstName: "",
-        lastName: "",
+        firstname: "",
+        lastname: "",
         email: "",
       });
       values && initial.push(values);
@@ -45,13 +52,13 @@ const BasicForm = () => {
     },
   });
 
-  function createData(firstName, lastName, email) {
-    return { firstName, lastName, email };
+  function createData(firstname, lastname, email) {
+    return { firstname, lastname, email };
   }
   const rows = [
     initial != null &&
       initial.map((e) =>
-        createData(`${e.firstName}`, `${e.lastName}`, `${e.email}`)
+        createData(`${e.firstname}`, `${e.lastname}`, `${e.email}`)
       ),
   ];
 
@@ -63,28 +70,28 @@ const BasicForm = () => {
 
   return (
     <div>
-      <h1>TODO Form</h1>
+      <h1>TODO</h1>
       <form onSubmit={formik.handleSubmit}>
         <TextField
           fullWidth
-          id="firstName"
-          name="firstName"
+          id="firstname"
+          name="firstname"
           label="First Name"
-          value={formik.values.firstName}
+          value={formik.values.firstname}
           onChange={formik.handleChange}
-          error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-          helperText={formik.touched.firstName && formik.errors.firstName}
+          error={formik.touched.firstname && Boolean(formik.errors.firstname)}
+          helperText={formik.touched.firstname && formik.errors.firstname}
           style={{ margin: 10 }}
         />
         <TextField
           fullWidth
-          id="lastName"
-          name="lastName"
+          id="lastname"
+          name="lastname"
           label="Last Name"
-          value={formik.values.lastName}
+          value={formik.values.lastname}
           onChange={formik.handleChange}
-          error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-          helperText={formik.touched.lastName && formik.errors.lastName}
+          error={formik.touched.lastname && Boolean(formik.errors.lastname)}
+          helperText={formik.touched.lastname && formik.errors.lastname}
           style={{ margin: 10 }}
         />
         <TextField
@@ -104,6 +111,7 @@ const BasicForm = () => {
           fullWidth
           type="submit"
           style={{ margin: 10 }}
+          onClick={() => dispatch(addTodo(initial))}
         >
           Submit
         </Button>
@@ -124,8 +132,8 @@ const BasicForm = () => {
                 {initial != null &&
                   initial.map((row, index) => (
                     <TableRow key={row.name} key={index}>
-                      <TableCell>{row.firstName}</TableCell>
-                      <TableCell align="left">{row.lastName}</TableCell>
+                      <TableCell>{row.firstname}</TableCell>
+                      <TableCell align="left">{row.lastname}</TableCell>
                       <TableCell align="left">{row.email}</TableCell>
                       <TableCell align="left">
                         <img
