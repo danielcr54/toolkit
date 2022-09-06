@@ -55,12 +55,7 @@ const BasicForm = () => {
   function createData(firstname, lastname, email) {
     return { firstname, lastname, email };
   }
-  const rows = [
-    initial != null &&
-      initial.map((e) =>
-        createData(`${e.firstname}`, `${e.lastname}`, `${e.email}`)
-      ),
-  ];
+
 
   const deletefunction = (indexToDelete) => {
     let updatedCardData = initial.filter((_, index) => index !== indexToDelete);
