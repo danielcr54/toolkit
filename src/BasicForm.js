@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-duplicate-props */
+/* eslint-disable jsx-a11y/alt-text */
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -51,10 +53,6 @@ const BasicForm = () => {
       localStorage.setItem("key", JSON.stringify(initial));
     },
   });
-
-  function createData(firstname, lastname, email) {
-    return { firstname, lastname, email };
-  }
 
 
   const deletefunction = (indexToDelete) => {
@@ -126,7 +124,7 @@ const BasicForm = () => {
               <TableBody>
                 {initial != null &&
                   initial.map((row, index) => (
-                    <TableRow key={row.name} key={index}>
+                    <TableRow key={row.name}>
                       <TableCell>{row.firstname}</TableCell>
                       <TableCell align="left">{row.lastname}</TableCell>
                       <TableCell align="left">{row.email}</TableCell>
